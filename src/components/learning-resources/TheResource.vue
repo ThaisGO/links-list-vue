@@ -14,7 +14,9 @@
     </base-card>
 
     <!-- Here we'll "inject" the 'html tag' of our custom components: stored-resources || add-resource -->
-    <component :is="selectedTab"></component>
+    <keep-alive>
+        <component :is="selectedTab"></component>
+    </keep-alive>  
 </template>
 
 <script>
@@ -47,7 +49,8 @@ import StoredResources from './StoredResources.vue';
         },
         provide() {
             return {
-                resources: this.storeResources
+                resources: this.storeResources,
+                addResource: this.addResource
             }
         },  
         computed: {
@@ -61,6 +64,20 @@ import StoredResources from './StoredResources.vue';
         methods: {
             setSelectedTab(tab) {
                 this.selectedTab = tab
+            },
+            addResource(title, description, url) {
+                const newResource = {
+                    id: new Date().toISOString(),
+                    title: title,
+                    description: description,
+                    link: url
+                }
+                // Isso colocaria ele no array, normalmente
+                // this.storeResources.push(newResource)
+
+                // Aqui colocamos o objeto no topo do array
+                this.storeResources.unshift(newResource)
+                this.selectedTab = 'stored-resources'
             }
         }
     }
