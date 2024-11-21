@@ -52,10 +52,10 @@ import StoredResources from './StoredResources.vue';
         },  
         computed: {
             storedResButtonMode() {
-                return this.selectTab === 'stored-resources' ? null : 'flat'
+                return this.selectedTab === 'stored-resources' ? null : 'flat'
             },
             addResButtonMode() {
-                return this.selectTab === 'add-resource' ? null : 'flat'
+                return this.selectedTab === 'add-resource' ? null : 'flat'
             }
         },
         methods: {
